@@ -1,0 +1,38 @@
+server:
+  port: 5555
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.5.122:3306/ds0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    druid:
+      dbType: mysql                                                                # 指定数据库类型 mysql
+      initialSize: 5                                                               # 启动初始化连接数量
+      minIdle: 5                                                                   # 最小空闲连接
+      maxActive: 20                                                                # 最大连接数量（包含使用中的和空闲的）
+      maxWait: 60000                                                               # 最大连接等待时间 ，超出时间报错
+      timeBetweenEvictionRunsMillis: 60000                                         # 设置执行一次连接回收器的时间
+      minEvictableIdleTimeMillis: 300000                                           # 设置时间： 该时间内没有任何操作的空闲连接会被回收
+      validationQuery: select 'x'                                                  # 验证连接有效性的sql
+      testWhileIdle: true                                                          # 空闲时校验
+      testOnBorrow: false                                                          # 使用中是否校验有效性
+      testOnReturn: false                                                          # 归还连接池时是否校验
+      poolPreparedStatements: false                                                # mysql 不推荐打开预处理连接池
+      filters: stat,wall,slf4j                                                     # 设置过滤器 stat用于接收状态，wall防止sql注入，logback说明使用logback进行日志输出
+      userGlobalataSourceStat: true                                                # 统计所有数据源状态
+      connectionProperties: druid.stat.mergSql=true;druid.stat.slowSqlMillis=500   # sql合并统计 设置慢sql时间为500，超过500 会有记录提示
+mybatis-plus:
+  mapper-locations: mapper/*.xml                                                   # sql
+  type-aliases-package: org.yan.basics.pojo                                        # 配置实体类包地址
+  global-config:
+    db-config:
+      id-type: auto                                                                # 主键策略: auto:自增ID, input:用户输入id, id_worker: 全局唯一id, uuid: 全局唯一uuid
+      table-prefix: basics                                                         # 表名前缀
+      table-underline: true                                                        # 表名是否使用下划线间隔，默认：是
+      logic-delete-field: logic_del                                                # 逻辑删除字段
+      logic-delete-value: 1                                                        # 已删除
+      logic-not-delete-value: 0                                                    # 未删除
+  configuration:
+    map-underscore-to-camel-case: true                                             # 驼峰转下划线
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl                          # 打印sql
