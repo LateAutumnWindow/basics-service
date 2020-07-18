@@ -1,6 +1,9 @@
 server:
   port: 5555
 spring:
+  devtools:
+    restart:
+      enabled: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.5.122:3306/ds0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
@@ -23,12 +26,12 @@ spring:
       userGlobalataSourceStat: true                                                # 统计所有数据源状态
       connectionProperties: druid.stat.mergSql=true;druid.stat.slowSqlMillis=500   # sql合并统计 设置慢sql时间为500，超过500 会有记录提示
 mybatis-plus:
-  mapper-locations: mapper/*.xml                                                   # sql
+  mapper-locations: mapper/*Mapper.xml                                             # sql
   type-aliases-package: org.yan.basics.pojo                                        # 配置实体类包地址
   global-config:
     db-config:
       id-type: auto                                                                # 主键策略: auto:自增ID, input:用户输入id, id_worker: 全局唯一id, uuid: 全局唯一uuid
-      table-prefix: basics                                                         # 表名前缀
+      # table-prefix: basics                                                       # 表名前缀
       table-underline: true                                                        # 表名是否使用下划线间隔，默认：是
       logic-delete-field: logic_del                                                # 逻辑删除字段
       logic-delete-value: 1                                                        # 已删除
@@ -36,3 +39,5 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true                                             # 驼峰转下划线
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl                          # 打印sql
+pagehelper:
+  helper-dialect: mysql                                                            # 分页插件配置pagehelper方言为mysql

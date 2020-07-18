@@ -51,7 +51,10 @@ public class DruidConfig {
         return bean;
     }
 
-    //再配置一个过滤器，Servlet按上面的方式注册Filter也只能这样
+    /**
+     * 再配置一个过滤器，Servlet按上面的方式注册Filter也只能这样
+     *
+     */
     @Bean
     public FilterRegistrationBean webStatFilter(){
         FilterRegistrationBean bean = new FilterRegistrationBean();

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.basics.dao.BasicsDictMapper">
+
+    <select id="getDictByGroup" parameterType="java.lang.String" resultType="com.yan.basics.pojo.BasicsDict">
+        SELECT
+            `id`,
+            `dict_key`,
+            `dict_value`,
+            `type_group`,
+            `status`,
+            `remark`,
+            `add_user`,
+            `add_time`,
+            `update_user`,
+            `update_time`
+        FROM basics_dict dic
+        WHERE dic.type_group = #{typeGroup}
+    </select>
+
+</mapper>
